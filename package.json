@@ -11,6 +11,10 @@
     "log"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexium-softworks/log.git"
+  },
   "files": [
     "src",
     "default.project.json",

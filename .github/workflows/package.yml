@@ -6,8 +6,7 @@ on:
   workflow_dispatch:      # Enables manual trigger via GitHub web
 
 permissions:
-  contents: write  # To push updated files back to main
-  packages: write  # For GitHub packages (optional)
+  contents: read
   id-token: write  # Required for OIDC trusted publishing
 
 jobs:
@@ -18,10 +17,22 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: main  # Always checkout main branch, not the tag
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Publish NPM Package
-        uses: phucbm/publish-npm-action@v1  # Docs https://github.com/phucbm/publish-npm-action
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
         with:
-          skip-tests: ${{ github.event.inputs.skip-tests || 'false' }}
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish NPM Package
+        run: npm publish

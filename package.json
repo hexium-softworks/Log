@@ -1,6 +1,6 @@
 {
   "name": "@hexium-softworks/log",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small, game-agnostic logging package with global loggers, minimum levels, structured context, and sink-based output for NevermoreEngine projects.",
   "keywords": [
     "Roblox",
